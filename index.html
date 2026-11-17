@@ -1,2 +1,233 @@
 <link rel="stylesheet" href="style.css">
 <script src="script.js" defer></script>
+
+"use strict";
+
+// DOM elements
+const form = document.getElementById("calculator");
+const result = document.getElementById("result");
+
+const inputs = {
+  V: document.getElementById("voltage"),
+  I: document.getElementById("current"),
+  R: document.getElementById("resistance")
+};
+
+const quantities = {
+  V: { name: "Voltage", unit: "V" },
+  I: { name: "Current", unit: "A" },
+  R: { name: "Resistance", unit: "Ω" }
+};
+
+// Get the quantity selected by the user
+function getUnknown() {
+  return document.querySelector(
+    'input[name="unknown"]:checked'
+  )?.value;
+}
+
+// Display feedback
+function showMessage(message, type = "") {
+  result.textContent = message;
+  result.className = type;
+  result.setAttribute(
+    "role",
+    type === "error" ? "alert" : "status"
+  );
+}
+
+// Format calculated values
+function formatNumber(value) {
+  if (!Number.isFinite(value)) {
+    return "Undefined";
+  }
+
+  if (value === 0) return "0";
+
+  const absolute = Math.abs(value);
+
+  if (absolute >= 1e7 || absolute < 1e-4) {
+    return value.toExponential(4);
+  }
+
+  return Number(value.toPrecision(6)).toString();
+}
+
+// Update fields when the unknown changes
+function updateFields() {
+  const unknown = getUnknown();
+
+  if (!unknown || !(unknown in inputs)) {
+    showMessage("Select a quantity to calculate.", "error");
+    return;
+  }
+
+  for (const [key, input] of Object.entries(inputs)) {
+    const isUnknown = key === unknown;
+
+    input.disabled = isUnknown;
+    input.required = !isUnknown;
+
+    if (isUnknown) {
+      input.value = "";
+      input.placeholder = "Calculated automatically";
+    } else {
+      input.placeholder = `Enter ${quantities[key].name.toLowerCase()}`;
+    }
+  }
+
+  showMessage("Enter two values to calculate the third.");
+}
+
+// Validate user input
+function readValue(key) {
+  const input = inputs[key];
+  const raw = input.value.trim();
+
+  if (raw === "") {
+    throw new Error(
+      `Please enter ${quantities[key].name.toLowerCase()}.`
+    );
+  }
+
+  const value = Number(raw);
+
+  if (!Number.isFinite(value)) {
+    throw new Error(
+      `${quantities[key].name} must be a valid number.`
+    );
+  }
+
+  // Resistance cannot be negative in this basic model
+  if (key === "R" && value < 0) {
+    throw new Error("Resistance cannot be negative.");
+  }
+
+  return value;
+}
+
+// Perform Ohm's Law calculations
+function calculate(event) {
+  if (event) event.preventDefault();
+
+  const unknown = getUnknown();
+
+  if (!unknown || !(unknown in inputs)) {
+    showMessage("Select a quantity to calculate.", "error");
+    return;
+  }
+
+  try {
+    const values = {};
+
+    for (const key of Object.keys(inputs)) {
+      if (key !== unknown) {
+        values[key] = readValue(key);
+      }
+    }
+
+    let answer;
+    let formula;
+
+    switch (unknown) {
+      case "V":
+        answer = values.I * values.R;
+        formula = "V = I × R";
+        break;
+
+      case "I":
+        if (values.R === 0) {
+          throw new Error(
+            "Current cannot be uniquely calculated when resistance is zero."
+          );
+        }
+
+        answer = values.V / values.R;
+        formula = "I = V ÷ R";
+        break;
+
+      case "R":
+        if (values.I === 0) {
+          throw new Error(
+            "Resistance cannot be uniquely calculated when current is zero."
+          );
+        }
+
+        answer = values.V / values.I;
+        formula = "R = V ÷ I";
+        break;
+    }
+
+    if (!Number.isFinite(answer)) {
+      throw new Error(
+        "The result is too large. Try smaller values."
+      );
+    }
+
+    if (unknown === "R" && answer < 0) {
+      throw new Error(
+        "The calculated resistance is negative. Check the signs of voltage and current."
+      );
+    }
+
+    // Display the calculated answer
+    const { name, unit } = quantities[unknown];
+
+    inputs[unknown].value = formatNumber(answer);
+
+    showMessage(
+      `${name} = ${formatNumber(answer)} ${unit} | ${formula}`,
+      "success"
+    );
+
+  } catch (error) {
+    inputs[unknown].value = "";
+    showMessage(error.message, "error");
+  }
+}
+
+// Reset the calculator
+function resetCalculator() {
+  for (const input of Object.values(inputs)) {
+    input.value = "";
+  }
+
+  updateFields();
+}
+
+// Automatically calculate when both inputs are filled
+function autoCalculate() {
+  const unknown = getUnknown();
+
+  if (!unknown || !(unknown in inputs)) return;
+
+  const known = Object.keys(inputs).filter(
+    key => key !== unknown
+  );
+
+  const allFilled = known.every(
+    key => inputs[key].value.trim() !== ""
+  );
+
+  if (allFilled) {
+    calculate();
+  } else {
+    inputs[unknown].value = "";
+    showMessage("Enter two values to calculate the third.");
+  }
+}
+
+// Event listeners
+document.querySelectorAll(
+  'input[name="unknown"]'
+).forEach(radio => {
+  radio.addEventListener("change", updateFields);
+});
+
+form.addEventListener("submit", calculate);
+
+Object.values(inputs).forEach(input => {
+  input.addEventListener("input", autoCalculate);
+});
+
+updateFields();
