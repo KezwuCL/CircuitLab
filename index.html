@@ -4,53 +4,107 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Ohm's Law Calculator</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+
+  <!-- Connect CSS -->
+  <link rel="stylesheet" href="./style.css">
+
+  <!-- Connect JavaScript -->
+  <script src="./script.js" defer></script>
 </head>
+
 <body>
   <main>
     <h1>Ohm's Law Calculator</h1>
-    <p>Calculate voltage, current, or resistance.</p>
+
+    <p>
+      Calculate voltage, current, or resistance
+      using Ohm's Law.
+    </p>
 
     <form id="calculator">
+
       <fieldset>
         <legend>What do you want to calculate?</legend>
 
         <label>
-          <input type="radio" name="unknown" value="V" checked>
+          <input
+            type="radio"
+            name="unknown"
+            value="V"
+            checked
+          >
           Voltage (V)
         </label>
 
         <label>
-          <input type="radio" name="unknown" value="I">
+          <input
+            type="radio"
+            name="unknown"
+            value="I"
+          >
           Current (I)
         </label>
 
         <label>
-          <input type="radio" name="unknown" value="R">
+          <input
+            type="radio"
+            name="unknown"
+            value="R"
+          >
           Resistance (R)
         </label>
       </fieldset>
 
+      <!-- Voltage -->
       <label for="voltage">Voltage (V)</label>
-      <input id="voltage" type="number" step="any">
+      <input
+        id="voltage"
+        name="voltage"
+        type="number"
+        step="any"
+        placeholder="Enter voltage"
+      >
 
+      <!-- Current -->
       <label for="current">Current (A)</label>
-      <input id="current" type="number" step="any">
+      <input
+        id="current"
+        name="current"
+        type="number"
+        step="any"
+        placeholder="Enter current"
+      >
 
+      <!-- Resistance -->
       <label for="resistance">Resistance (Ω)</label>
-      <input id="resistance" type="number" step="any">
+      <input
+        id="resistance"
+        name="resistance"
+        type="number"
+        step="any"
+        placeholder="Enter resistance"
+      >
 
-      <button type="submit">Calculate</button>
-      <button type="reset" onclick="resetCalculator()">
-        Reset
-      </button>
+      <!-- Buttons -->
+      <div class="buttons">
+        <button type="submit">
+          Calculate
+        </button>
+
+        <button type="reset">
+          Reset
+        </button>
+      </div>
+
     </form>
 
-    <p id="result" role="status">
-      Your result will appear here.
+    <!-- Calculation result -->
+    <p id="result" role="status" aria-live="polite">
+      Enter two values to calculate the third.
     </p>
+
   </main>
 </body>
 </html>
