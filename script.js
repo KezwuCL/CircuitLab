@@ -1,12 +1,10 @@
 
 "use strict";
 
-// Wait until the HTML is fully loaded
-document.addEventListener("DOMContentLoaded", () => {
-
-  // Get HTML elements
+function initializeCalculator() {
   const form = document.getElementById("calculator");
   const result = document.getElementById("result");
+  const process = document.getElementById("process");
 
   const inputs = {
     V: document.getElementById("voltage"),
@@ -20,250 +18,195 @@ document.addEventListener("DOMContentLoaded", () => {
     R: { name: "Resistance", unit: "Ω" }
   };
 
-  // Check that all required HTML elements exist
-  if (!form || !result ||
+  if (!form || !result || !process ||
       Object.values(inputs).some(input => !input)) {
-    console.error(
-      "Calculator setup error: Missing HTML elements."
-    );
+    console.error("Missing calculator HTML elements.");
     return;
   }
 
-  // Find the quantity the user wants to calculate
   function getUnknown() {
-    const selected = document.querySelector(
+    return document.querySelector(
       'input[name="unknown"]:checked'
-    );
-
-    return selected ? selected.value : null;
+    )?.value;
   }
 
-  // Display messages and results
-  function showMessage(message, type = "") {
-    result.textContent = message;
-    result.className = type;
-    result.setAttribute(
-      "role",
-      type === "error" ? "alert" : "status"
-    );
-  }
-
-  // Format numbers
-  function formatNumber(value) {
-    if (!Number.isFinite(value)) {
-      return "Undefined";
-    }
-
-    if (value === 0) return "0";
-
-    const absolute = Math.abs(value);
-
-    if (absolute >= 1e7 || absolute < 1e-4) {
-      return value.toExponential(4);
-    }
-
+  function format(value) {
+    if (!Number.isFinite(value)) return "Undefined";
     return Number(value.toPrecision(6)).toString();
   }
 
-  // Update input fields based on selected quantity
-  function updateFields() {
-    const unknown = getUnknown();
-
-    if (!unknown || !(unknown in inputs)) {
-      showMessage(
-        "Please select a quantity to calculate.",
-        "error"
-      );
-      return;
-    }
-
-    for (const [key, input] of Object.entries(inputs)) {
-      const isUnknown = key === unknown;
-
-      input.disabled = isUnknown;
-      input.required = !isUnknown;
-      input.value = "";
-
-      input.placeholder = isUnknown
-        ? "Calculated automatically"
-        : `Enter ${quantities[key].name.toLowerCase()}`;
-    }
-
-    showMessage(
-      "Enter two values to calculate the third."
-    );
+  function showError(message) {
+    result.textContent = message;
+    result.className = "error";
+    process.textContent = "Unable to calculate.";
   }
 
-  // Read and validate input values
-  function readValue(key) {
-    const input = inputs[key];
-    const raw = input.value.trim();
-
-    if (raw === "") {
-      throw new Error(
-        `Please enter ${quantities[key].name.toLowerCase()}.`
-      );
-    }
-
-    const value = Number(raw);
-
-    if (!Number.isFinite(value)) {
-      throw new Error(
-        `${quantities[key].name} must be a valid number.`
-      );
-    }
-
-    if (key === "R" && value < 0) {
-      throw new Error(
-        "Resistance cannot be negative."
-      );
-    }
-
-    return value;
+  function clearResults() {
+    process.textContent = "Enter two values to see the steps.";
+    result.textContent = "Your answer will appear here.";
+    result.className = "";
   }
 
-  // Main calculation function
   function calculate(event) {
     if (event) event.preventDefault();
 
     const unknown = getUnknown();
 
-    if (!unknown || !(unknown in inputs)) {
-      showMessage(
-        "Please select a quantity to calculate.",
-        "error"
-      );
+    if (!unknown || !inputs[unknown]) {
+      showError("Please select a quantity.");
       return;
     }
-
-    try {
-      const values = {};
-
-      for (const key of Object.keys(inputs)) {
-        if (key !== unknown) {
-          values[key] = readValue(key);
-        }
-      }
-
-      let answer;
-      let formula;
-
-      // Ohm's Law formulas
-      switch (unknown) {
-
-        case "V":
-          // Voltage = Current × Resistance
-          answer = values.I * values.R;
-          formula = "V = I × R";
-          break;
-
-        case "I":
-          // Current = Voltage ÷ Resistance
-          if (values.R === 0) {
-            throw new Error(
-              "Cannot calculate current when resistance is zero."
-            );
-          }
-
-          answer = values.V / values.R;
-          formula = "I = V ÷ R";
-          break;
-
-        case "R":
-          // Resistance = Voltage ÷ Current
-          if (values.I === 0) {
-            throw new Error(
-              "Cannot calculate resistance when current is zero."
-            );
-          }
-
-          answer = values.V / values.I;
-          formula = "R = V ÷ I";
-          break;
-      }
-
-      // Check the result
-      if (!Number.isFinite(answer)) {
-        throw new Error(
-          "The calculated value is too large."
-        );
-      }
-
-      if (unknown === "R" && answer < 0) {
-        throw new Error(
-          "Resistance cannot be negative. Check your values."
-        );
-      }
-
-      // Display the calculated answer
-      const { name, unit } = quantities[unknown];
-      const formatted = formatNumber(answer);
-
-      inputs[unknown].value = formatted;
-
-      showMessage(
-        `${name} = ${formatted} ${unit} | ${formula}`,
-        "success"
-      );
-
-    } catch (error) {
-      inputs[unknown].value = "";
-      showMessage(error.message, "error");
-    }
-  }
-
-  // Automatically calculate when both values exist
-  function autoCalculate() {
-    const unknown = getUnknown();
-
-    if (!unknown || !(unknown in inputs)) return;
 
     const known = Object.keys(inputs).filter(
       key => key !== unknown
     );
 
-    const allFilled = known.every(
-      key => inputs[key].value.trim() !== ""
-    );
+    const values = {};
 
-    if (allFilled) {
-      calculate();
-    } else {
-      inputs[unknown].value = "";
+    for (const key of known) {
+      const raw = inputs[key].value.trim();
 
-      showMessage(
-        "Enter two values to calculate the third."
-      );
+      if (raw === "") {
+        inputs[unknown].value = "";
+        clearResults();
+        return;
+      }
+
+      values[key] = Number(raw);
+
+      if (!Number.isFinite(values[key])) {
+        showError("Please enter valid numbers.");
+        return;
+      }
     }
+
+    if ("R" in values && values.R < 0) {
+      showError("Resistance cannot be negative.");
+      return;
+    }
+
+    let answer;
+    let formula;
+    let substitution;
+
+    switch (unknown) {
+      case "V":
+        answer = values.I * values.R;
+        formula = "V = I × R";
+        substitution =
+          `V = ${format(values.I)} × ${format(values.R)}`;
+        break;
+
+      case "I":
+        if (values.R === 0) {
+          showError("Cannot divide by zero resistance.");
+          return;
+        }
+
+        answer = values.V / values.R;
+        formula = "I = V ÷ R";
+        substitution =
+          `I = ${format(values.V)} ÷ ${format(values.R)}`;
+        break;
+
+      case "R":
+        if (values.I === 0) {
+          showError("Cannot divide by zero current.");
+          return;
+        }
+
+        answer = values.V / values.I;
+        formula = "R = V ÷ I";
+        substitution =
+          `R = ${format(values.V)} ÷ ${format(values.I)}`;
+        break;
+    }
+
+    if (!Number.isFinite(answer)) {
+      showError("The calculated result is too large.");
+      return;
+    }
+
+    if (unknown === "R" && answer < 0) {
+      showError("Calculated resistance cannot be negative.");
+      return;
+    }
+
+    const formatted = format(answer);
+    const { name, unit } = quantities[unknown];
+
+    inputs[unknown].value = formatted;
+
+    // Show the steps without injecting HTML
+    process.replaceChildren();
+
+    const steps = [
+      `Step 1: Identify the formula: ${formula}`,
+      `Step 2: Substitute the values: ${substitution}`,
+      `Step 3: Calculate: ${formatted} ${unit}`
+    ];
+
+    steps.forEach(step => {
+      const paragraph = document.createElement("p");
+      paragraph.textContent = step;
+      process.appendChild(paragraph);
+    });
+
+    result.textContent = `${name} = ${formatted} ${unit}`;
+    result.className = "success";
   }
 
-  // Reset calculator
-  function resetCalculator() {
-    updateFields();
+  function updateFields() {
+    const unknown = getUnknown();
+
+    if (!unknown || !inputs[unknown]) {
+      showError("Please select a quantity.");
+      return;
+    }
+
+    for (const [key, input] of Object.entries(inputs)) {
+      input.disabled = key === unknown;
+      input.required = key !== unknown;
+      input.value = "";
+
+      input.placeholder = key === unknown
+        ? "Calculated automatically"
+        : `Enter ${quantities[key].name.toLowerCase()}`;
+    }
+
+    clearResults();
   }
 
-  // Listen for quantity selection changes
+  // Calculate automatically when values change
+  Object.values(inputs).forEach(input => {
+    input.addEventListener("input", calculate);
+  });
+
+  // Calculate when the button is clicked
+  form.addEventListener("submit", calculate);
+
+  // Update when the selected quantity changes
   document.querySelectorAll(
     'input[name="unknown"]'
   ).forEach(radio => {
     radio.addEventListener("change", updateFields);
   });
 
-  // Calculate when the button is clicked
-  form.addEventListener("submit", calculate);
-
-  // Automatically calculate while typing
-  Object.values(inputs).forEach(input => {
-    input.addEventListener("input", autoCalculate);
-  });
-
-  // Reset button support
+  // Reset the calculator
   form.addEventListener("reset", event => {
     event.preventDefault();
-    resetCalculator();
+    updateFields();
   });
 
-  // Initialize calculator
   updateFields();
+}
 
-});
+// Works whether the script loads before or after the HTML
+if (document.readyState === "loading") {
+  document.addEventListener(
+    "DOMContentLoaded",
+    initializeCalculator
+  );
+} else {
+  initializeCalculator();
+}
