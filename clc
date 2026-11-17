@@ -1,0 +1,89 @@
+const form = document.getElementById("calculator");
+const result = document.getElementById("result");
+const inputs = {
+  V: document.getElementById("voltage"),
+  I: document.getElementById("current"),
+  R: document.getElementById("resistance")
+};
+const names = { V: "voltage", I: "current", R: "resistance" };
+const units = { V: "V", I: "A", R: "Ω" };
+
+function getUnknown() {
+  return document.querySelector('input[name="unknown"]:checked').value;
+}
+
+function updateFields() {
+  const unknown = getUnknown();
+  for (const key in inputs) {
+    const isUnknown = key === unknown;
+    inputs[key].disabled = isUnknown;
+    if (isUnknown) inputs[key].value = "";
+  }
+  showMessage("Your result will appear here.", "");
+}
+
+function showMessage(text, type) {
+  result.textContent = text;
+  result.className = type;
+}
+
+// Read a numeric value from a field; returns null if empty, NaN if invalid
+function readValue(input) {
+  const raw = input.value.trim();
+  if (raw === "") return null;
+  const num = Number(raw);
+  return Number.isFinite(num) ? num : NaN;
+}
+
+function formatNumber(n) {
+  return Number(n.toPrecision(6)).toString();
+}
+
+function calculate(event) {
+  event.preventDefault();
+  const unknown = getUnknown();
+  const known = Object.keys(inputs).filter(k => k !== unknown);
+  const values = {};
+
+  // Check for missing or invalid inputs
+  for (const key of known) {
+    const value = readValue(inputs[key]);
+    if (value === null) {
+      showMessage(`Enter a value for ${names[key]}.`, "error");
+      inputs[key].focus();
+      return;
+    }
+    if (Number.isNaN(value)) {
+      showMessage(`${names[key][0].toUpperCase() + names[key].slice(1)} must be a number.`, "error");
+      inputs[key].focus();
+      return;
+    }
+    values[key] = value;
+  }
+
+  let answer;
+  if (unknown === "V") {
+    answer = values.I * values.R;                 // V = I × R
+  } else if (unknown === "I") {
+    if (values.R === 0) {                         // I = V ÷ R
+      showMessage("Resistance can't be zero. Enter a value greater than 0.", "error");
+      inputs.R.focus();
+      return;
+    }
+    answer = values.V / values.R;
+  } else {
+    if (values.I === 0) {                         // R = V ÷ I
+      showMessage("Current can't be zero. Enter a value greater than 0.", "error");
+      inputs.I.focus();
+      return;
+    }
+    answer = values.V / values.I;
+  }
+
+  const label = names[unknown][0].toUpperCase() + names[unknown].slice(1);
+  showMessage(`${label} = ${formatNumber(answer)} ${units[unknown]}`, "success");
+}
+
+document.querySelectorAll('input[name="unknown"]').forEach(r => r.addEventListener("change", updateFields));
+form.addEventListener("submit", calculate);
+updateFields();
