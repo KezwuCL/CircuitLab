@@ -5,135 +5,161 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Ohm's Law Calculator</title>
+  <title>CircuitLab | Ohm's Law Calculator</title>
 
-  <!-- Connect CSS -->
-  <link rel="stylesheet" href="./style.css">
-
-  <!-- Connect JavaScript -->
+  <link rel="stylesheet" href="./style.css?v=3">
   <script src="./script.js" defer></script>
 </head>
 
 <body>
-  
-<header>
-  <nav>
-    <a class="brand" href="index.html">⚡ CircuitLab</a>
 
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="calculator.html">Calculators</a>
-      <a href="information.html">Information</a>
-      <a href="formulas.html">Formulas</a>
-      <a href="about.html">About</a>
-    </div>
-  </nav>
-</header>
+  <header>
+    <nav>
+      <a class="brand" href="index.html">⚡ CircuitLab</a>
 
-<div class="crumb">
-  <a href="index.html">Home</a>
-  › Calculators
-  › Ohm's Law Calculator
-</div>
-
-  <main>
-    <h1>Ohm's Law Calculator</h1>
-
-    <p>
-      Calculate voltage, current, or resistance
-      using Ohm's Law.
-    </p>
-
-    <form id="calculator" onsubmit="return false;">
-
-      <fieldset>
-        <legend>What do you want to calculate?</legend>
-
-        <label>
-          <input
-            type="radio"
-            name="unknown"
-            value="V"
-            checked
-          >
-          Voltage (V)
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            name="unknown"
-            value="I"
-          >
-          Current (I)
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            name="unknown"
-            value="R"
-          >
-          Resistance (R)
-        </label>
-      </fieldset>
-
-      <!-- Voltage -->
-      <label for="voltage">Voltage (V)</label>
-      <input
-        id="voltage"
-        name="voltage"
-        type="number"
-        step="any"
-        placeholder="Enter voltage"
-      >
-
-      <!-- Current -->
-      <label for="current">Current (A)</label>
-      <input
-        id="current"
-        name="current"
-        type="number"
-        step="any"
-        placeholder="Enter current"
-      >
-
-      <!-- Resistance -->
-      <label for="resistance">Resistance (Ω)</label>
-      <input
-        id="resistance"
-        name="resistance"
-        type="number"
-        step="any"
-        placeholder="Enter resistance"
-      >
-
-      <!-- Buttons -->
-      <div class="buttons">
-        <button type="submit">
-          Calculate
-        </button>
-
-        <button type="reset">
-          Reset
-        </button>
+      <div class="links">
+        <a href="index.html">Home</a>
+        <a class="active" href="calculator.html">Calculators</a>
+        <a href="information.html">Information</a>
+        <a href="formulas.html">Formulas</a>
+        <a href="about.html">About</a>
       </div>
+    </nav>
+  </header>
 
-    </form>
-
-    <!-- Calculation result -->
-    <section aria-label="Calculation results">
-  <h2>Calculation Process</h2>
-  <div id="process" aria-live="polite">
-    Enter two values to see the steps.
+  <div class="crumb">
+    <a href="index.html">Home</a>
+    › Calculators
+    › Ohm's Law Calculator
   </div>
 
-  <h2>Final Answer</h2>
-  <p id="result" role="status" aria-live="polite">
-    Your answer will appear here.
-  </p>
-</section>
+  <main class="site-main">
+
+    <section class="hero">
+
+      <span class="eyebrow">Electrical Engineering · Calculator</span>
+
+      <h1>Ohm's Law Calculator</h1>
+
+      <p class="intro">
+        Calculate voltage, current or resistance
+        with step-by-step solutions.
+      </p>
+
+    </section>
+
+    <section class="calculator-layout">
+
+      <!-- Input section -->
+      <article>
+
+        <h2>Enter your values</h2>
+
+        <form id="calculator" onsubmit="return false;">
+
+          <fieldset>
+            <legend>What do you want to calculate?</legend>
+
+            <label>
+              <input type="radio" name="unknown" value="V" checked>
+              Voltage
+            </label>
+
+            <label>
+              <input type="radio" name="unknown" value="I">
+              Current
+            </label>
+
+            <label>
+              <input type="radio" name="unknown" value="R">
+              Resistance
+            </label>
+          </fieldset>
+
+          <label for="voltage">Voltage (V)</label>
+
+          <input
+            id="voltage"
+            type="number"
+            step="any"
+            placeholder="Enter voltage"
+          >
+
+          <label for="current">Current (A)</label>
+
+          <input
+            id="current"
+            type="number"
+            step="any"
+            placeholder="Enter current"
+          >
+
+          <label for="resistance">Resistance (Ω)</label>
+
+          <input
+            id="resistance"
+            type="number"
+            step="any"
+            placeholder="Enter resistance"
+          >
+
+          <div class="buttons">
+
+            <button type="button" id="calculateBtn">
+              Calculate
+            </button>
+
+            <button type="reset">
+              Reset
+            </button>
+
+          </div>
+
+        </form>
+
+      </article>
+
+      <!-- Results section -->
+      <article>
+
+        <h2>Calculation Process</h2>
+
+        <div id="process" aria-live="polite">
+          Enter two values to see the calculation steps.
+        </div>
+
+        <h2>Final Answer</h2>
+
+        <p id="result" role="status" aria-live="polite">
+          Your answer will appear here.
+        </p>
+
+      </article>
+
+    </section>
+
+    <article style="margin-top: 30px;">
+
+      <h2>How to use the calculator</h2>
+
+      <ol>
+        <li>Select the quantity you want to calculate.</li>
+        <li>Enter the two known values.</li>
+        <li>Press Calculate to display the solution.</li>
+        <li>Review the calculation process and final answer.</li>
+      </ol>
+
+      <a class="action" href="formulas.html">
+        View electrical formulas →
+      </a>
+
+    </article>
 
   </main>
+
+  <footer>
+    CircuitLab · Electrical Engineering Learning Project
+  </footer>
+
 </body>
 </html>
