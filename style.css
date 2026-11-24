@@ -375,5 +375,64 @@ footer {
 
   fieldset label {
     display: block;
+
+    
+/* Two-column calculator layout */
+.calculator-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+  align-items: start;
+}
+
+.calculator-layout article {
+  box-shadow: 0 5px 15px rgba(24, 58, 96, 0.06);
+}
+
+.calculator-layout h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.calculator-layout #process {
+  min-height: 150px;
+  margin-bottom: 25px;
+}
+
+.calculator-layout #result {
+  min-height: 70px;
+}
+
+/* About page guiding question */
+blockquote {
+  background: #eaf3ff;
+  border-left: 4px solid #2563eb;
+  border-radius: 6px;
+  padding: 20px;
+  margin: 20px 0;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+/* Improve article readability */
+article p,
+article li {
+  line-height: 1.8;
+}
+
+/* Keyboard navigation */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 4px;
+}
+/* Mobile calculator layout */
+@media (max-width: 800px) {
+  .calculator-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
   }
 }
