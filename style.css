@@ -1,20 +1,96 @@
 
-/* ==================================
-   NAVIGATION AND PAGE ANIMATIONS
-   ================================== */
+/* =========================================
+   CIRCUITLAB - GLOBAL DESIGN
+   ========================================= */
 
-/* Navigation links */
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #2563eb;
+  --dark-blue: #183a60;
+  --light-blue: #eaf3ff;
+  --border: #d4e2f0;
+  --text: #64748b;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--dark-blue);
+
+  /* Light-blue notebook background */
+  background-color: #f4f9ff;
+
+  background-image:
+    linear-gradient(#d5e5f5 1px, transparent 1px),
+    linear-gradient(90deg, #d5e5f5 1px, transparent 1px);
+
+  background-size: 22px 22px;
+}
+
+/* =========================================
+   NAVIGATION BAR
+   ========================================= */
+
+header {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.brand {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--dark-blue);
+  text-decoration: none;
+  letter-spacing: -1px;
+  transition: color 0.2s ease;
+}
+
+.brand:hover {
+  color: var(--primary);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
 .links a {
   position: relative;
   display: inline-block;
   padding: 8px 0;
-  border-bottom: none;
+  text-decoration: none;
+  color: #475569;
+  font-size: 15px;
+  font-weight: 600;
+
   transition:
     color 0.25s ease,
     transform 0.15s ease;
 }
 
-/* Animated blue underline */
+/* Animated navigation underline */
 .links a::after {
   content: "";
   position: absolute;
@@ -22,42 +98,400 @@
   left: 0;
   width: 100%;
   height: 3px;
-
-  background-color: #2563eb;
+  background: var(--primary);
   border-radius: 3px;
-
   transform: scaleX(0);
   transform-origin: center;
-
   transition: transform 0.3s ease;
 }
 
-/* Hover animation */
-.links a:hover {
-  color: #2563eb;
-}
-
-.links a:hover::after {
-  transform: scaleX(1);
-}
-
-/* Currently selected page */
+.links a:hover,
 .links a.active {
-  color: #2563eb;
-  border-bottom: none;
-  padding-bottom: 8px;
+  color: var(--primary);
 }
 
+.links a:hover::after,
 .links a.active::after {
   transform: scaleX(1);
 }
 
-/* Animation when clicking */
 .links a:active {
-  transform: scale(0.92);
+  transform: scale(0.94);
 }
 
-/* Page entrance animation */
+/* =========================================
+   BREADCRUMB NAVIGATION
+   ========================================= */
+
+.crumb {
+  max-width: 1200px;
+  margin: auto;
+  padding: 18px 30px;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.crumb a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.crumb a:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   MAIN PAGE CONTAINERS
+   ========================================= */
+
+main {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 35px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(24, 58, 96, 0.06);
+}
+
+main.site-main {
+  max-width: 1200px;
+  width: 100%;
+  margin: 20px auto;
+  padding: 20px 30px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* =========================================
+   WELCOME / HERO SECTION
+   ========================================= */
+
+.hero {
+  text-align: center;
+  padding: 60px 25px;
+
+  background: linear-gradient(
+    135deg,
+    #eaf3ff,
+    #d6e8ff
+  );
+
+  border: 1px solid #c2d9f5;
+  border-radius: 20px;
+}
+
+.eyebrow {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 34px;
+  text-align: center;
+  letter-spacing: -1px;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  margin: 20px 0 12px;
+}
+
+.intro {
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* =========================================
+   HOMEPAGE AND INFORMATION CARDS
+   ========================================= */
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
+
+article {
+  min-width: 0;
+  background: white;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  line-height: 1.7;
+}
+
+.tiles article {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 5px 15px rgba(24, 58, 96, 0.06);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.tiles article:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(24, 58, 96, 0.12);
+}
+
+.symbol {
+  display: inline-block;
+  background: var(--light-blue);
+  color: var(--primary);
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 25px;
+  font-weight: 700;
+  max-width: 100%;
+}
+
+.tiles h2 {
+  font-size: 23px;
+  margin: 18px 0 5px;
+}
+
+.tiles p {
+  color: var(--text);
+  margin-bottom: 25px;
+  overflow-wrap: anywhere;
+}
+
+.tiles .action {
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
+}
+
+article p,
+article li {
+  line-height: 1.8;
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.action,
+button {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 13px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.action:hover,
+button:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(37, 99, 235, 0.2);
+}
+
+.action:active,
+button:active {
+  transform: scale(0.97);
+}
+
+/* =========================================
+   CALCULATOR LAYOUT
+   ========================================= */
+
+.calculator-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+  align-items: start;
+}
+
+.calculator-layout article {
+  padding: 30px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(24, 58, 96, 0.06);
+}
+
+.calculator-layout h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.calculator-layout hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 25px 0;
+}
+
+/* =========================================
+   CALCULATOR INPUTS
+   ========================================= */
+
+fieldset {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--light-blue);
+  padding: 18px;
+  margin: 25px 0;
+}
+
+legend {
+  font-weight: 600;
+}
+
+label {
+  display: block;
+  margin-top: 16px;
+  font-weight: 600;
+}
+
+fieldset label {
+  display: inline-block;
+  margin: 8px;
+}
+
+input[type="radio"] {
+  accent-color: var(--primary);
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 14px;
+  margin-top: 7px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 16px;
+  color: var(--dark-blue);
+  background: white;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+input:disabled {
+  background: var(--light-blue);
+  color: var(--primary);
+  opacity: 1;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.buttons button {
+  flex: 1;
+}
+
+button[type="reset"] {
+  background: #e2e8f0;
+  color: var(--dark-blue);
+}
+
+button[type="reset"]:hover {
+  background: #cbd5e1;
+}
+
+/* =========================================
+   CALCULATION PROCESS AND ANSWER
+   ========================================= */
+
+#process {
+  background: #f8fbff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+  padding: 20px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.calculator-layout #process {
+  min-height: 150px;
+  margin-bottom: 25px;
+}
+
+#result {
+  background: var(--light-blue);
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.calculator-layout #result {
+  min-height: 70px;
+}
+
+.success {
+  color: var(--primary);
+}
+
+.error {
+  color: #dc2626;
+}
+
+/* =========================================
+   ABOUT PAGE
+   ========================================= */
+
+blockquote {
+  background: var(--light-blue);
+  border-left: 4px solid var(--primary);
+  border-radius: 6px;
+  padding: 20px;
+  margin: 20px 0;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+footer {
+  padding: 35px 20px;
+  text-align: center;
+  color: var(--text);
+  font-size: 14px;
+}
+
+/* =========================================
+   PAGE ANIMATIONS
+   ========================================= */
+
 @keyframes pageEnter {
   from {
     opacity: 0;
@@ -70,50 +504,53 @@
   }
 }
 
-/* Apply animation to every page */
+/* Fade and slide when opening a page */
 main {
-  animation: pageEnter 0.45s ease both;
+  animation: pageEnter 0.4s ease both;
 }
 
-/* Animated homepage cards */
+/* Staggered card entrance */
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
 .tiles article {
-  animation: pageEnter 0.5s ease both;
+  animation: cardEnter 0.4s ease backwards;
 }
 
 .tiles article:nth-child(1) {
-  animation-delay: 0.1s;
+  animation-delay: 0.05s;
 }
 
 .tiles article:nth-child(2) {
-  animation-delay: 0.2s;
+  animation-delay: 0.10s;
 }
 
 .tiles article:nth-child(3) {
-  animation-delay: 0.3s;
+  animation-delay: 0.15s;
 }
 
-/* Button animations */
-button,
-.action {
-  transition:
-    background-color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+.tiles article:nth-child(4) {
+  animation-delay: 0.20s;
 }
 
-button:hover,
-.action:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(37, 99, 235, 0.2);
+.tiles article:nth-child(5) {
+  animation-delay: 0.25s;
 }
 
-button:active,
-.action:active {
-  transform: scale(0.97);
+.tiles article:nth-child(6) {
+  animation-delay: 0.30s;
 }
 
-/* Smooth transitions between HTML pages
-   in supported browsers */
+/* Smooth transitions between pages */
 @view-transition {
   navigation: auto;
 }
@@ -123,7 +560,7 @@ button:active,
 }
 
 ::view-transition-new(root) {
-  animation: fadeIn 0.3s ease both;
+  animation: fadeIn 0.25s ease both;
 }
 
 @keyframes fadeOut {
@@ -136,7 +573,16 @@ button:active,
   to { opacity: 1; }
 }
 
-/* Accessibility */
+/* =========================================
+   ACCESSIBILITY
+   ========================================= */
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 4px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -147,5 +593,63 @@ button:active,
 
   @view-transition {
     navigation: none;
+  }
+}
+
+/* =========================================
+   TABLET COMPATIBILITY
+   ========================================= */
+
+@media (max-width: 900px) {
+  .tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .calculator-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================
+   MOBILE COMPATIBILITY
+   ========================================= */
+
+@media (max-width: 600px) {
+  nav {
+    justify-content: center;
+    padding: 18px;
+  }
+
+  .links {
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .tiles {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    margin: 20px 15px;
+    padding: 20px;
+  }
+
+  main.site-main {
+    margin: 0 auto;
+    padding: 15px;
+  }
+
+  .hero {
+    padding: 35px 20px;
+  }
+
+  .calculator-layout article {
+    padding: 20px;
+  }
+
+  fieldset label {
+    display: block;
   }
 }
