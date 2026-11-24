@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CircuitLab | Information</title>
-<link rel="stylesheet" href="./style.css?v=6">
+  <link rel="stylesheet" href="./style.css?v=6">
 </head>
 
 <body>
@@ -31,35 +31,44 @@
   <main class="site-main">
 
     <section class="hero">
-      <span class="eyebrow">Electrical Engineering · Fundamentals</span>
+
+      <span class="eyebrow">
+        Electrical Engineering · Fundamentals
+      </span>
 
       <h1>Understanding Electrical Circuits</h1>
 
       <p class="intro">
-        Learn the essential concepts behind electrical circuits
-        and discover how voltage, current and resistance
-        work together.
+        Discover the fundamental principles behind
+        electrical circuits and how they work.
       </p>
+
     </section>
 
     <section class="tiles">
 
       <article>
+
         <div class="symbol">V</div>
+
         <h2>Voltage</h2>
 
         <p>
           Voltage is the electrical potential difference
-          between two points in a circuit.
+          between two points in a circuit. It represents
+          the energy transferred per unit of charge.
         </p>
 
         <p><strong>Symbol:</strong> V</p>
         <p><strong>SI Unit:</strong> Volt (V)</p>
         <p><strong>Formula:</strong> V = I × R</p>
+
       </article>
 
       <article>
+
         <div class="symbol">I</div>
+
         <h2>Current</h2>
 
         <p>
@@ -70,10 +79,13 @@
         <p><strong>Symbol:</strong> I</p>
         <p><strong>SI Unit:</strong> Ampere (A)</p>
         <p><strong>Formula:</strong> I = V / R</p>
+
       </article>
 
       <article>
+
         <div class="symbol">Ω</div>
+
         <h2>Resistance</h2>
 
         <p>
@@ -84,9 +96,32 @@
         <p><strong>Symbol:</strong> R</p>
         <p><strong>SI Unit:</strong> Ohm (Ω)</p>
         <p><strong>Formula:</strong> R = V / I</p>
+
       </article>
 
     </section>
+
+    <article style="margin-top: 30px;">
+
+      <h2>What is an electrical circuit?</h2>
+
+      <p>
+        An electrical circuit is a closed path that
+        allows electric current to flow. A basic circuit
+        typically contains a power source, conducting
+        wires and an electrical component.
+      </p>
+
+      <h3>Basic components</h3>
+
+      <ul>
+        <li>Power source: provides electrical energy.</li>
+        <li>Conductors: provide a path for current.</li>
+        <li>Resistors: oppose the flow of current.</li>
+        <li>Switches: open or close a circuit.</li>
+      </ul>
+
+    </article>
 
     <article style="margin-top: 30px;">
 
@@ -100,22 +135,88 @@
 
       <div class="symbol">V = I × R</div>
 
+      <h3>Relationship between the variables</h3>
+
+      <ul>
+        <li>
+          At constant resistance, increasing voltage
+          increases current.
+        </li>
+
+        <li>
+          At constant voltage, increasing resistance
+          decreases current.
+        </li>
+
+        <li>
+          At constant current, increasing resistance
+          increases the required voltage.
+        </li>
+      </ul>
+
       <h3>Example</h3>
 
       <p>
-        A circuit has a resistance of 5 Ω and
-        a current of 2 A.
+        A resistor has a resistance of 5 Ω
+        and a current of 2 A flowing through it.
+        Calculate the voltage.
       </p>
 
-      <p>V = I × R</p>
-      <p>V = 2 × 5</p>
-      <p><strong>V = 10 V</strong></p>
+      <p>Step 1: V = I × R</p>
+      <p>Step 2: V = 2 × 5</p>
+      <p><strong>Step 3: V = 10 V</strong></p>
 
       <a class="action" href="calculator.html">
         Try the calculator →
       </a>
 
     </article>
+
+    <section class="calculator-layout">
+
+      <article>
+
+        <div class="symbol">Series</div>
+
+        <h2>Series Circuits</h2>
+
+        <p>
+          In a series circuit, components are connected
+          along a single path.
+        </p>
+
+        <ul>
+          <li>Current is the same through each component.</li>
+          <li>Voltage drops add together.</li>
+          <li>Individual resistances add together.</li>
+        </ul>
+
+        <p><strong>Rₜ = R₁ + R₂ + R₃</strong></p>
+
+      </article>
+
+      <article>
+
+        <div class="symbol">Parallel</div>
+
+        <h2>Parallel Circuits</h2>
+
+        <p>
+          In a parallel circuit, components are connected
+          across multiple branches.
+        </p>
+
+        <ul>
+          <li>Voltage is the same across each branch.</li>
+          <li>Current divides between branches.</li>
+          <li>Equivalent resistance is lower than the smallest positive branch resistance.</li>
+        </ul>
+
+        <p><strong>1/Rₜ = 1/R₁ + 1/R₂ + 1/R₃</strong></p>
+
+      </article>
+
+    </section>
 
   </main>
 
