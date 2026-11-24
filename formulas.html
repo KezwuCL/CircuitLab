@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulas | CircuitLab</title>
-  <link rel="stylesheet" href="style.css">
+  <title>CircuitLab | Formulas</title>
+  <link rel="stylesheet" href="./style.css?v=3">
 </head>
 
 <body>
@@ -18,7 +18,7 @@
         <a href="index.html">Home</a>
         <a href="calculator.html">Calculators</a>
         <a href="information.html">Information</a>
-        <a href="formulas.html">Formulas</a>
+        <a class="active" href="formulas.html">Formulas</a>
         <a href="about.html">About</a>
       </div>
     </nav>
@@ -28,39 +28,107 @@
     <a href="index.html">Home</a> › Formulas
   </div>
 
-  <main>
+  <main class="site-main">
 
-    <h1>Electrical Formulas</h1>
+    <section class="hero">
 
-    <h2>Ohm's Law</h2>
+      <span class="eyebrow">Electrical Engineering · Reference Sheet</span>
 
-    <article>
-      <p>Voltage: V = I × R</p>
-      <p>Current: I = V / R</p>
-      <p>Resistance: R = V / I</p>
-    </article>
+      <h1>Electrical Formulas</h1>
 
-    <h2>Electrical Power</h2>
+      <p class="intro">
+        Explore essential equations used to solve
+        electrical circuit problems.
+      </p>
 
-    <article>
-      <p>P = V × I</p>
-      <p>P = I² × R</p>
-      <p>P = V² / R</p>
-    </article>
+    </section>
 
-    <h2>Series Resistance</h2>
+    <section class="tiles">
 
-    <article>
-      <p>R(total) = R1 + R2 + R3 + ...</p>
-    </article>
+      <article>
+        <div class="symbol">V = IR</div>
 
-    <h2>Parallel Resistance</h2>
+        <h2>Ohm's Law</h2>
 
-    <article>
-      <p>1/R(total) = 1/R1 + 1/R2 + 1/R3 + ...</p>
-    </article>
+        <p><strong>Voltage:</strong> V = I × R</p>
+        <p><strong>Current:</strong> I = V / R</p>
+        <p><strong>Resistance:</strong> R = V / I</p>
+
+        <a class="action" href="calculator.html">
+          Open calculator →
+        </a>
+      </article>
+
+      <article>
+        <div class="symbol">P = VI</div>
+
+        <h2>Electrical Power</h2>
+
+        <p>P = V × I</p>
+        <p>P = I² × R</p>
+        <p>P = V² / R</p>
+
+        <p>Power is measured in watts (W).</p>
+      </article>
+
+      <article>
+        <div class="symbol">E = Pt</div>
+
+        <h2>Electrical Energy</h2>
+
+        <p>E = P × t</p>
+        <p>E = V × I × t</p>
+
+        <p>Energy is measured in joules (J).</p>
+        <p>Time is measured in seconds (s).</p>
+      </article>
+
+      <article>
+        <div class="symbol">Rₜ</div>
+
+        <h2>Series Resistance</h2>
+
+        <p>Rₜ = R₁ + R₂ + R₃ + ...</p>
+
+        <p>
+          The total resistance is the sum
+          of all individual resistances.
+        </p>
+      </article>
+
+      <article>
+        <div class="symbol">1/Rₜ</div>
+
+        <h2>Parallel Resistance</h2>
+
+        <p>1/Rₜ = 1/R₁ + 1/R₂ + 1/R₃ + ...</p>
+
+        <p>
+          For two resistors in parallel:
+        </p>
+
+        <p>Rₜ = (R₁ × R₂) / (R₁ + R₂)</p>
+      </article>
+
+      <article>
+        <div class="symbol">Q = It</div>
+
+        <h2>Electric Charge</h2>
+
+        <p>Q = I × t</p>
+        <p>I = Q / t</p>
+        <p>t = Q / I</p>
+
+        <p>Charge is measured in coulombs (C).</p>
+      </article>
+
+    </section>
 
   </main>
+
+  <footer>
+    CircuitLab · Electrical Engineering Learning Project
+  </footer>
 
 </body>
 </html>
