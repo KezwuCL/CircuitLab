@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CircuitLab | Formulas</title>
-<link rel="stylesheet" href="./style.css?v=6">
+  <link rel="stylesheet" href="./style.css?v=6">
 </head>
 
 <body>
@@ -32,20 +32,24 @@
 
     <section class="hero">
 
-      <span class="eyebrow">Electrical Engineering · Reference Sheet</span>
+      <span class="eyebrow">
+        Electrical Engineering · Reference Sheet
+      </span>
 
       <h1>Electrical Formulas</h1>
 
       <p class="intro">
-        Explore essential equations used to solve
-        electrical circuit problems.
+        Explore essential electrical equations,
+        their variables and units.
       </p>
 
     </section>
 
     <section class="tiles">
 
+      <!-- Ohm's Law -->
       <article>
+
         <div class="symbol">V = IR</div>
 
         <h2>Ohm's Law</h2>
@@ -54,12 +58,21 @@
         <p><strong>Current:</strong> I = V / R</p>
         <p><strong>Resistance:</strong> R = V / I</p>
 
+        <p>
+          V = Voltage (V)<br>
+          I = Current (A)<br>
+          R = Resistance (Ω)
+        </p>
+
         <a class="action" href="calculator.html">
           Open calculator →
         </a>
+
       </article>
 
+      <!-- Electrical power -->
       <article>
+
         <div class="symbol">P = VI</div>
 
         <h2>Electrical Power</h2>
@@ -68,10 +81,24 @@
         <p>P = I² × R</p>
         <p>P = V² / R</p>
 
-        <p>Power is measured in watts (W).</p>
+        <p>
+          P = Power (W)<br>
+          V = Voltage (V)<br>
+          I = Current (A)<br>
+          R = Resistance (Ω)
+        </p>
+
+        <p>
+          Power represents the rate of energy transfer.
+          The resistance-based formulas apply to
+          resistive components.
+        </p>
+
       </article>
 
+      <!-- Electrical energy -->
       <article>
+
         <div class="symbol">E = Pt</div>
 
         <h2>Electrical Energy</h2>
@@ -79,11 +106,22 @@
         <p>E = P × t</p>
         <p>E = V × I × t</p>
 
-        <p>Energy is measured in joules (J).</p>
-        <p>Time is measured in seconds (s).</p>
+        <p>
+          E = Energy (J)<br>
+          P = Power (W)<br>
+          t = Time (s)
+        </p>
+
+        <p>
+          These equations calculate electrical energy
+          transferred at constant power.
+        </p>
+
       </article>
 
+      <!-- Series resistance -->
       <article>
+
         <div class="symbol">Rₜ</div>
 
         <h2>Series Resistance</h2>
@@ -91,26 +129,40 @@
         <p>Rₜ = R₁ + R₂ + R₃ + ...</p>
 
         <p>
-          The total resistance is the sum
-          of all individual resistances.
+          Rₜ = Total resistance (Ω)<br>
+          R₁, R₂, R₃ = Individual resistances (Ω)
         </p>
+
+        <p>
+          Total resistance is the sum of all
+          resistances connected in series.
+        </p>
+
       </article>
 
+      <!-- Parallel resistance -->
       <article>
+
         <div class="symbol">1/Rₜ</div>
 
         <h2>Parallel Resistance</h2>
 
         <p>1/Rₜ = 1/R₁ + 1/R₂ + 1/R₃ + ...</p>
 
-        <p>
-          For two resistors in parallel:
-        </p>
+        <p><strong>For two resistors:</strong></p>
 
         <p>Rₜ = (R₁ × R₂) / (R₁ + R₂)</p>
+
+        <p>
+          Rₜ = Equivalent resistance (Ω)<br>
+          R₁, R₂ = Individual resistances (Ω)
+        </p>
+
       </article>
 
+      <!-- Electrical charge -->
       <article>
+
         <div class="symbol">Q = It</div>
 
         <h2>Electric Charge</h2>
@@ -119,10 +171,82 @@
         <p>I = Q / t</p>
         <p>t = Q / I</p>
 
-        <p>Charge is measured in coulombs (C).</p>
+        <p>
+          Q = Electric charge (C)<br>
+          I = Current (A)<br>
+          t = Time (s)
+        </p>
+
+        <p>
+          These equations relate electric charge,
+          constant current and time.
+        </p>
+
       </article>
 
     </section>
+
+    <article style="margin-top: 30px;">
+
+      <h2>SI Units Reference</h2>
+
+      <table style="width: 100%; border-collapse: collapse; text-align: left;">
+
+        <thead style="background: #eaf3ff;">
+          <tr>
+            <th style="padding: 12px;">Quantity</th>
+            <th style="padding: 12px;">Symbol</th>
+            <th style="padding: 12px;">SI Unit</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td style="padding: 12px;">Voltage</td>
+            <td>V</td>
+            <td>Volt (V)</td>
+          </tr>
+
+          <tr>
+            <td style="padding: 12px;">Current</td>
+            <td>I</td>
+            <td>Ampere (A)</td>
+          </tr>
+
+          <tr>
+            <td style="padding: 12px;">Resistance</td>
+            <td>R</td>
+            <td>Ohm (Ω)</td>
+          </tr>
+
+          <tr>
+            <td style="padding: 12px;">Power</td>
+            <td>P</td>
+            <td>Watt (W)</td>
+          </tr>
+
+          <tr>
+            <td style="padding: 12px;">Energy</td>
+            <td>E</td>
+            <td>Joule (J)</td>
+          </tr>
+
+          <tr>
+            <td style="padding: 12px;">Charge</td>
+            <td>Q</td>
+            <td>Coulomb (C)</td>
+          </tr>
+
+          <tr>
+            <td style="padding: 12px;">Time</td>
+            <td>t</td>
+            <td>Second (s)</td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </article>
 
   </main>
 
