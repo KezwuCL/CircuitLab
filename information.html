@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Information | CircuitLab</title>
-  <link rel="stylesheet" href="style.css">
+  <title>CircuitLab | Information</title>
+  <link rel="stylesheet" href="./style.css?v=3">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
       <div class="links">
         <a href="index.html">Home</a>
         <a href="calculator.html">Calculators</a>
-        <a href="information.html">Information</a>
+        <a class="active" href="information.html">Information</a>
         <a href="formulas.html">Formulas</a>
         <a href="about.html">About</a>
       </div>
@@ -28,45 +28,100 @@
     <a href="index.html">Home</a> › Information
   </div>
 
-  <main>
+  <main class="site-main">
 
-    <h1>Electrical Circuit Fundamentals</h1>
+    <section class="hero">
+      <span class="eyebrow">Electrical Engineering · Fundamentals</span>
 
-    <h2>What is Ohm's Law?</h2>
+      <h1>Understanding Electrical Circuits</h1>
 
-    <p>
-      Ohm's Law describes the relationship between
-      voltage, current and resistance in an ohmic
-      conductor under constant physical conditions.
-    </p>
+      <p class="intro">
+        Learn the essential concepts behind electrical circuits
+        and discover how voltage, current and resistance
+        work together.
+      </p>
+    </section>
 
-    <h2>Voltage (V)</h2>
+    <section class="tiles">
 
-    <p>
-      Voltage is the electrical potential difference
-      between two points. It is measured in volts (V).
-    </p>
+      <article>
+        <div class="symbol">V</div>
+        <h2>Voltage</h2>
 
-    <h2>Current (I)</h2>
+        <p>
+          Voltage is the electrical potential difference
+          between two points in a circuit.
+        </p>
 
-    <p>
-      Current is the rate at which electric charge
-      flows through a circuit. It is measured in
-      amperes (A).
-    </p>
+        <p><strong>Symbol:</strong> V</p>
+        <p><strong>SI Unit:</strong> Volt (V)</p>
+        <p><strong>Formula:</strong> V = I × R</p>
+      </article>
 
-    <h2>Resistance (R)</h2>
+      <article>
+        <div class="symbol">I</div>
+        <h2>Current</h2>
 
-    <p>
-      Resistance is the opposition to the flow of
-      electric current. It is measured in ohms (Ω).
-    </p>
+        <p>
+          Electric current is the rate at which
+          electrical charge flows through a conductor.
+        </p>
 
-    <a class="action" href="calculator.html">
-      Try the calculator
-    </a>
+        <p><strong>Symbol:</strong> I</p>
+        <p><strong>SI Unit:</strong> Ampere (A)</p>
+        <p><strong>Formula:</strong> I = V / R</p>
+      </article>
+
+      <article>
+        <div class="symbol">Ω</div>
+        <h2>Resistance</h2>
+
+        <p>
+          Resistance is the opposition to the flow
+          of electric current through a material.
+        </p>
+
+        <p><strong>Symbol:</strong> R</p>
+        <p><strong>SI Unit:</strong> Ohm (Ω)</p>
+        <p><strong>Formula:</strong> R = V / I</p>
+      </article>
+
+    </section>
+
+    <article style="margin-top: 30px;">
+
+      <h2>What is Ohm's Law?</h2>
+
+      <p>
+        Ohm's Law describes the relationship between
+        voltage, current and resistance in an ohmic
+        conductor under constant physical conditions.
+      </p>
+
+      <div class="symbol">V = I × R</div>
+
+      <h3>Example</h3>
+
+      <p>
+        A circuit has a resistance of 5 Ω and
+        a current of 2 A.
+      </p>
+
+      <p>V = I × R</p>
+      <p>V = 2 × 5</p>
+      <p><strong>V = 10 V</strong></p>
+
+      <a class="action" href="calculator.html">
+        Try the calculator →
+      </a>
+
+    </article>
 
   </main>
+
+  <footer>
+    CircuitLab · Electrical Engineering Learning Project
+  </footer>
 
 </body>
 </html>
