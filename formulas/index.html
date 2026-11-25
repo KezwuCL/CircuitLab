@@ -14,21 +14,33 @@
 
 <body>
 
-  <header>
-    <nav>
 
-      <a class="brand" href="/CircuitLab/">⚡ CircuitLab</a>
+<header>
+  <nav>
 
-      <div class="links">
-        <a href="/CircuitLab/">Home</a>
-        <a href="/CircuitLab/calculator/">Calculators</a>
-        <a href="/CircuitLab/information/">Information</a>
-        <a class="active" href="/CircuitLab/formulas/">Formulas</a>
-        <a href="/CircuitLab/about/">About</a>
-      </div>
+    <a class="brand" href="/CircuitLab/">⚡ CircuitLab</a>
 
-    </nav>
-  </header>
+    <!-- Mobile menu button -->
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+      aria-controls="nav-links">
+      ☰
+    </button>
+
+    <div class="links" id="nav-links">
+      <a class="active" href="/CircuitLab/">Home</a>
+      <a href="/CircuitLab/calculator/">Calculators</a>
+      <a href="/CircuitLab/information/">Information</a>
+      <a href="/CircuitLab/formulas/">Formulas</a>
+      <a href="/CircuitLab/about/">About</a>
+    </div>
+
+  </nav>
+</header>
+
 
   <div class="crumb">
     <a href="/CircuitLab/">Home</a> › Formulas
