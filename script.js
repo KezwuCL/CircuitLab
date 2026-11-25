@@ -1,4 +1,57 @@
 
+// =========================================
+// MOBILE AND IPAD NAVIGATION
+// =========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const nav = document.querySelector("nav");
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navLinks = document.querySelector(".links");
+
+  if (!nav || !menuToggle || !navLinks) return;
+
+  nav.classList.add("menu-ready");
+
+  function closeMenu() {
+    navLinks.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.textContent = "☰";
+  }
+
+  menuToggle.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("open");
+
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.textContent = isOpen ? "✕" : "☰";
+  });
+
+  // Close when selecting a page
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  // Close when tapping outside the menu
+  document.addEventListener("click", event => {
+    if (!nav.contains(event.target)) {
+      closeMenu();
+    }
+  });
+
+  // Close when pressing Escape
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      closeMenu();
+    }
+  });
+
+  // Reset when switching to desktop
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 1024) {
+      closeMenu();
+    }
+  });
+});
+
 "use strict";
 
 function initializeCalculator() {
